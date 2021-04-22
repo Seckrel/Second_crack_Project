@@ -15,7 +15,12 @@ function MiniAboutUs() {
 
     return (
         <Container maxWidth="md" disableGutters>
-            <Paper elevation={2} classes={paperClasses} className={classes.padding20}>
+            <Paper 
+                elevation={2} 
+                classes={paperClasses} 
+                className={classes.padding20}
+                square={true}
+            >
                 <Box component="div" p={2}>
                     Welcome to 2<sup>nd</sup> Crack.
                 </Box>

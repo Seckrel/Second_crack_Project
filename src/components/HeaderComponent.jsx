@@ -69,7 +69,7 @@ function Header(){
                             classes={{ paper: classes.paper }}
                         >
                         {/* TODO: make dynamic */}
-                            {navItemList([1,2,3,4])}
+                            {navItemList(["Home", "About Us", "Menu", "Contact"])}
                         </Drawer>
                     </Paper>
                 </Toolbar>

@@ -7,9 +7,7 @@ import {
 } from 'reactstrap'
 import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
-import Tooltip from '@material-ui/core/Tooltip'
-import Zoom from '@material-ui/core/Zoom'
-import { useStylesBootstrapTooltip } from '../../materialUI/Styles'
+import CreditImg from '../recycle/CreditImgComponent'
 
 
 // TODO
@@ -35,7 +33,6 @@ function ShowCase(){
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
-  const creditTooltip = useStylesBootstrapTooltip();
 
   const next = () => {
     if (animating) return;
@@ -61,14 +58,15 @@ function ShowCase(){
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <Tooltip 
+        {/* <Tooltip 
           arrow
           title={item.credit} 
           classes={creditTooltip}
           TransitionComponent={Zoom}
         >
           <img src={item.src} alt={item.altText} className="img-fluid"/>
-        </Tooltip>
+        </Tooltip> */}
+        <CreditImg credit={item.credit} src={item.src} alt={item.altText} />
       </CarouselItem>
     );
   });
