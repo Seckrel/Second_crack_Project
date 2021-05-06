@@ -1,3 +1,10 @@
+$font-path: "./fonts" !default;
+@font-face{
+  font-family: 'Old Growth';
+  src: url('#{$font-path}/OldGrowth-Regular.otf');
+}
+
+
 body {
   background-color: #121e22;
   color: #e8e2e2;

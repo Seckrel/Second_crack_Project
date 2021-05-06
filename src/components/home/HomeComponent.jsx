@@ -1,6 +1,7 @@
 import ShowCase from './CarousalComponent'
 import MiniAboutUs from './MiniAboutUsComponent'
 import MessageBullient from './MessageBullientComponent'
+import SpecialMenu from '../recycle/SpecialMenuComponent'
 import React from 'react'
 
 
@@ -10,6 +11,7 @@ function Home(){
             <ShowCase />
             <MiniAboutUs />
             <MessageBullient />
+            <SpecialMenu />
         </React.Fragment>
     )
 }

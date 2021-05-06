@@ -1,5 +1,5 @@
 import Container from '@material-ui/core/Container'
-import { useStylesAboutMini, useStylesPaperGeneral, useStylesBtnColor } from '../../materialUI/Styles'
+import { useStylesp20, useStylesPaperGeneral, useStylesBtnColor } from '../../materialUI/Styles'
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 
 
 function MiniAboutUs() {
-    const classes = useStylesAboutMini();
+    const classes = useStylesp20();
     const paperClasses = useStylesPaperGeneral();
     const btnColorStyle = useStylesBtnColor();
 

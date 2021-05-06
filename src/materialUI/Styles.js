@@ -42,7 +42,7 @@ export const useStylesBootstrapTooltip = makeStyles((theme) => ({
     },
   }));
 
-export const useStylesAboutMini = makeStyles(theme => ({
+export const useStylesp20 = makeStyles(theme => ({
     padding20: {
         padding: "20px"
     },

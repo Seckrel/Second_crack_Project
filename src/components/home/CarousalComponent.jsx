@@ -58,14 +58,6 @@ function ShowCase(){
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        {/* <Tooltip 
-          arrow
-          title={item.credit} 
-          classes={creditTooltip}
-          TransitionComponent={Zoom}
-        >
-          <img src={item.src} alt={item.altText} className="img-fluid"/>
-        </Tooltip> */}
         <CreditImg credit={item.credit} src={item.src} alt={item.altText} />
       </CarouselItem>
     );
