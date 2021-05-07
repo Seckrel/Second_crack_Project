@@ -5,7 +5,7 @@ import Body from './BodyComponent'
 function Main(){
     return(
         <div>
-        <Header />
+        <Header id='top'/>
         <Body />
         <Footer />
         </div>

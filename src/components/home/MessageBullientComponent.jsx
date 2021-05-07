@@ -56,7 +56,7 @@ const MessageBullient = () => {
                         style={{height: "inherit"}}
                     >
                         <Typography variant={"h4"} className={classes.h4Section}>
-                            We Are Open
+                            we are open
                         </Typography>
                     </Paper>
                 </Box>

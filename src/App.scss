@@ -1,20 +1,48 @@
 $font-path: "./fonts" !default;
 @font-face{
-  font-family: 'Old Growth';
-  src: url('#{$font-path}/OldGrowth-Regular.otf');
+  font-family: 'Old_Growth_Regular';
+  src: url('#{$font-path}/old_growth/oldgrowth-regular-webfont.woff') format('woff');
+}
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('#{$font-path}/Brandon Grotesque/transat_bold-webfont.woff') format('woff'), 
+       url('#{$font-path}/Brandon Grotesque/transat_bold-webfont.eot') format('embedded-opentype'),
+       url('#{$font-path}/Brandon Grotesque/transat_bold-webfont.svg') format('svg'),
+       url('#{$font-path}/Brandon Grotesque/transat_bold-webfont.ttf') format('truetype'),
+       url('#{$font-path}/Brandon Grotesque/transat_bold-webfont.woff2') format('woff2'),
+}
+@font-face {
+  font-family: 'courier-std';
+  src: url('#{$font-path}/Courier Std Medium Oblique/Courier-Std-Medium-Oblique.woff') format('woff'),
+  url('#{$font-path}/Courier Std Medium Oblique/Courier-Std-Medium-Oblique.ttf') format('truetype'),
+  url('#{$font-path}/Courier Std Medium Oblique/Courier-Std-Medium-Oblique.otf') format('opentype');
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background-color: #121e22;
   color: #e8e2e2;
 }
 
-.mainBody {
-  // padding-top: 5px;
-}
+
 .centerItem {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.btn-weather  {
+  transition: opacity 0.5s;
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  position: relative;
+  transition: bottom 0.5s ease 0s;
+  bottom: 2px;
+}
+.btn-faded  {
+  opacity: 0.5;
+  position: relative;
+  bottom: 0px;
 }

@@ -57,7 +57,7 @@ export const useStylesPaperGeneral = makeStyles(theme => ({
 
 export const useStylesBtnColor = makeStyles(theme => ({
     root: {
-        backgroundColor: "#4863d5"
+        backgroundColor: "#476CE1"
     }
 }))
 
