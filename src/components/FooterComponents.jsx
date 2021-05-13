@@ -7,7 +7,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 const useBackToTopFab = makeStyles(theme => ({
     root: {
-        backgroundColor: "inherit",
         color: "#ffffff",
         transform: "rotate(45deg)",
         position: "relative",
