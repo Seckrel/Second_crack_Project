@@ -36,64 +36,64 @@ const useMenuHeadStyles = makeStyles((theme) => ({
   }));
 
 
-const tileImgData = [
-    {
-        id: 1,
-        backgroundImgSrc: "/assests/tempImgs/pexels-lood-goosen-1235717.jpg",
-        altText: "Hot Speical Menu Item",
-        active: true,
-        credit: "Photo by Lood Goosen from Pexels",
-        tileText: "Hot Drinks"
-    },
-    {
-        id: 2,
-        backgroundImgSrc: "/assests/tempImgs/pexels-taryn-elliott-4099238.jpg",
-        altText: "Breakfast Spical Menu Item",
-        active: false,
-        credit: "Photo by Taryn Elliott from Pexels",
-        tileText: "Breakfast"
-    }
-]
+// const tileImgData = [
+//     {
+//         id: 1,
+//         backgroundImgSrc: "/assests/tempImgs/pexels-lood-goosen-1235717.jpg",
+//         altText: "Hot Speical Menu Item",
+//         active: true,
+//         credit: "Photo by Lood Goosen from Pexels",
+//         tileText: "Hot Drinks"
+//     },
+//     {
+//         id: 2,
+//         backgroundImgSrc: "/assests/tempImgs/pexels-taryn-elliott-4099238.jpg",
+//         altText: "Breakfast Spical Menu Item",
+//         active: false,
+//         credit: "Photo by Taryn Elliott from Pexels",
+//         tileText: "Breakfast"
+//     }
+// ]
 
-const menuItem = {
-    hotDrinks: [
-        {
-            name: "Cappacino",
-        },
-        {
-            name: "Latte",
-        },
-        {
-            name: "Espresso",
-        },
-        {
-            name: "Pumkin Latte",
-        },
-        {
-            name: "Turkish Style",
-        },
-    ],
-    breakfast: [
-        {
-            name: "Toast",
-            receipe: "w/ Butter, honey, or jam"
-        },
-        {
-            name: "Egg on Toast",
-            receipe: "Two eggs cook your way"
-        },
-        {
-            name: "Eggs Benedict",
-            receipe: "Two Poached Eggs, Hollandaise, served with a Bagel and Bacon or Ham"
-        }
-    ]
-}
+// const menuItem = {
+//     hotDrinks: [
+//         {
+//             name: "Cappacino",
+//         },
+//         {
+//             name: "Latte",
+//         },
+//         {
+//             name: "Espresso",
+//         },
+//         {
+//             name: "Pumkin Latte",
+//         },
+//         {
+//             name: "Turkish Style",
+//         },
+//     ],
+//     breakfast: [
+//         {
+//             name: "Toast",
+//             receipe: "w/ Butter, honey, or jam"
+//         },
+//         {
+//             name: "Egg on Toast",
+//             receipe: "Two eggs cook your way"
+//         },
+//         {
+//             name: "Eggs Benedict",
+//             receipe: "Two Poached Eggs, Hollandaise, served with a Bagel and Bacon or Ham"
+//         }
+//     ]
+// }
 
-const SpecialMenuItems = ({hotDrinkActive}) => {
-    const items = hotDrinkActive?menuItem.hotDrinks:menuItem.breakfast;
+const SpecialMenuItems = ({menuItem}) => {
+    // const items = hotDrinkActive?menuItem.hotDrinks:menuItem.breakfast;
     return (
         <Grid container spacing={3}>
-            {items.map(item => (
+            {menuItem.map(item => (
                 <Fragment>
                     <Grid item xs={12}>
                         <Typography 
@@ -217,7 +217,7 @@ const SpecialMenu = (props) => {
                     </GridList>
                 </Box>
                 <Box component="div" m={2}>
-                    <SpecialMenuItems hotDrinkActive={hotDrinkActive}/>
+                    <SpecialMenuItems menuItem={activeMenuItem}/>
                 </Box>
                 <FullMenuBtn link={match.url}/>
             </Paper>
