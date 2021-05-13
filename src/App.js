@@ -1,10 +1,13 @@
 import Main from './components/MainComponent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <Main />
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
   );
 }
 

@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import CreditImg from './CreditImgComponent';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles'
 import { useStylesp20  } from '../../materialUI/Styles'
 import { useState, Fragment } from 'react'
@@ -34,10 +35,6 @@ const useMenuHeadStyles = makeStyles((theme) => ({
     },
   }));
 
-
-
-//   first image Photo by Lood Goosen from Pexels
-//   second image Photo by Taryn Elliott from Pexels
 
 const tileImgData = [
     {
@@ -93,7 +90,7 @@ const menuItem = {
 }
 
 const SpecialMenuItems = ({hotDrinkActive}) => {
-    const items = hotDrinkActive?menuItem.hotDrinks:menuItem.breakfast
+    const items = hotDrinkActive?menuItem.hotDrinks:menuItem.breakfast;
     return (
         <Grid container spacing={3}>
             {items.map(item => (
@@ -122,18 +119,50 @@ const SpecialMenuItems = ({hotDrinkActive}) => {
     )
 }
 
-function SpecialMenu() {
+const FullMenuBtn = ({link}) => {
+    if (link !== '/'){
+        return (
+            <div></div>
+        )
+    }
+    return (
+        <Box m={2}>
+                    <Grid spacing={3}>
+                        <Grid container justify={"center"} item xs={12}>
+                        <Button variant="contained" disableElevation>
+                            <Link 
+                                to={'/menu'}
+                                style={{ 
+                                    textDecoration: 'none', 
+                                    color: 'inherit' 
+                                }} 
+                            >
+                                Show Full Menu
+                            </Link>
+                        </Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+    )
+}
+
+const SpecialMenu = (props) => {
     const classes = useStylesp20();
+    const menuDetails = props.menuDetails;
+    const subTypes = props.menuDetails.subTypes;
     const headTypography = useHeadingStyles();
     const specialMenuHead = useMenuHeadStyles();
     const [hotDrinkActive, setHotDrinkActive] = useState(true);
+    const [activeMenuItem, setActiveMenuItem] = useState(subTypes[0].menuItem)
+    const match = useRouteMatch();
     const toggleClass = (id) => {
-        tileImgData.forEach(item => {
+        subTypes.forEach(item => {
             item.active = false;
             if (id === item.id) 
             {   
                 item.active = true;
                 setHotDrinkActive(!hotDrinkActive);
+                setActiveMenuItem(item.menuItem);
             }
         })
     }
@@ -156,11 +185,11 @@ function SpecialMenu() {
                                     classes={headTypography} 
                                     component="h2"
                                 >
-                                    special menu
+                                    {menuDetails.menuType.toLowerCase()}
                                 </Typography>
                             </ListSubheader>
                         </GridListTile>
-                        {tileImgData.map((tile) => (
+                        {subTypes.map((tile) => (
                         <GridListTile 
                             cellHeight={160} 
                             key={tile.id} 
@@ -169,8 +198,7 @@ function SpecialMenu() {
                             className={tile.active?'btn-weather':'btn-faded'}
                             
                         >
-                            
-                            {<img src={tile.backgroundImgSrc} alt={tile.altText} />}
+                            <CreditImg credit={tile.credit} src={tile.backgroundImgSrc} altText={tile.altText} />
                             <GridListTileBar
                                 onClick={!tile.active?() => toggleClass(tile.id):null}
                                 title={
@@ -191,18 +219,10 @@ function SpecialMenu() {
                 <Box component="div" m={2}>
                     <SpecialMenuItems hotDrinkActive={hotDrinkActive}/>
                 </Box>
-                <Box m={2}>
-                    <Grid spacing={3}>
-                        <Grid container justify={"center"} item xs={12}>
-                        <Button variant="contained" disableElevation>
-                            Show Full Menu
-                        </Button>
-                        </Grid>
-                    </Grid>
-                </Box>
+                <FullMenuBtn link={match.url}/>
             </Paper>
         </Container>
     )
 }
 
-export default SpecialMenu
+export default SpecialMenu;

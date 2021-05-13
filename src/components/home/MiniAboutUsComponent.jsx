@@ -3,6 +3,7 @@ import { useStylesp20, useStylesPaperGeneral, useStylesBtnColor } from '../../ma
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button'
 
 
@@ -47,7 +48,15 @@ function MiniAboutUs() {
                     justifyContent={"center"}
                 >
                 <Button classes={btnColorStyle}>
-                    Read About Us
+                    <Link 
+                        to={'/aboutus'}
+                        style={{ 
+                            textDecoration: 'none', 
+                            color: 'inherit' 
+                        }} 
+                    >
+                        Read About Us
+                    </Link>
                 </Button>
                 </Box>
             </Paper>

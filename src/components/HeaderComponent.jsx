@@ -10,7 +10,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Paper from '@material-ui/core/Paper'
-
+import { Link } from 'react-router-dom';
 import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
 import { appBarTheme } from '../materialUI/AppBarTheme'
 import { useState } from 'react'
@@ -30,15 +30,29 @@ function Header(){
         setDrawerState(open)
       };
 
+    const linkMaker = (item) => {
+        return item.toLowerCase() === 'home'?'':item.toLowerCase().replaceAll(/\s/g,'');
+    }
+
     const navItemList = (items) => {
         return(
             <List>
                 {items.map(item => (
                     <ListItem>
-                        <ListItemText 
-                            primary={item} 
+                        <ListItemText     
                             classes={{root: classesItemText.root}}
-                        />
+                        >
+                            <Link to={`/${linkMaker(item)}`} 
+                                style={{ 
+                                        textDecoration: 'none', 
+                                        color: 'inherit' 
+                                    }} 
+                                onClick={toggleDrawer("top", false)}
+                            >
+                                {item}
+                            </Link>
+                        </ListItemText>
+                        
                     </ListItem>
                 ))}
             </List>
@@ -68,7 +82,6 @@ function Header(){
                             onClose={toggleDrawer("top", false)}
                             classes={{ paper: classes.paper }}
                         >
-                        {/* TODO: make dynamic */}
                             {navItemList(["Home", "About Us", "Menu", "Contact"])}
                         </Drawer>
                     </Paper>
