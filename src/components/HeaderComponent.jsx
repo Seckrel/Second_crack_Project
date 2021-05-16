@@ -12,15 +12,32 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom';
 import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
+import { makeStyles } from '@material-ui/core/styles';
 import { appBarTheme } from '../materialUI/AppBarTheme'
 import { useState } from 'react'
 
+const useDesktopListStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 0,
+    }
+}))
 
-function Header(){
+const useToolbarStyles = makeStyles(theme => ({
+    gutters: {
+        padding: "0 calc(100% * 0.1) 0 calc(100% * 0.11)"
+    }
+}))
+
+const Header = (props) => {
     const classes = useStylesHeader()
     const classesItemText = listItemTextHeader()
     const [drawerState, setDrawerState] = useState(false);
-    
+    const navItems =["Home", "About Us", "Menu", "Contact"];
+    const viewType = props.viewType;
+    const desktopListStyle = useDesktopListStyles();
+    const toolbarStyles = useToolbarStyles();
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -58,33 +75,59 @@ function Header(){
             </List>
         )
     }
+
+    const mobileNav = () => (
+        <Paper className={classes.buttonGap}>
+            <IconButton className={classes.menu} color="inherit" aria-label="menu" onClick={toggleDrawer("top", true)}>
+                <MenuIcon />
+            </IconButton>
+            <Drawer 
+                anchor={"top"} 
+                open={drawerState} 
+                onClose={toggleDrawer("top", false)}
+                classes={{ paper: classes.paper }}
+            >
+                {navItemList(navItems)}
+            </Drawer>
+        </Paper>
+    )
+
+    const desktopNav = () => (
+        <List classes={desktopListStyle}>
+            {navItems.map(item => (
+                <ListItem>
+                    <Typography  variant="h6" noWrap>
+                        <Link 
+                            to={`/${linkMaker(item)}`} 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'inherit' 
+                                }} 
+                            onClick={toggleDrawer("top", false)}
+                        >
+                            {item}
+                        </Link>
+                    </Typography>
+                </ListItem>
+            ))}
+        </List>
+    )
     
 
     return(
         <ThemeProvider theme={appBarTheme}>
             <AppBar position="static" className={classes.toolbar.root}>
-                <Toolbar>
+                <Toolbar classes={toolbarStyles}>
                     <Typography className={classes.title} variant="h6">
                         2<sup>nd</sup> Crack
                     </Typography>
+                    {viewType === "laptop" || viewType === "pc"?desktopNav():mobileNav()}
                     <Paper className={classes.buttonGap}>
                         <IconButton color="inherit" aria-label="cart">
                             <ShoppingCartIcon />
                         </IconButton>
                     </Paper>
-                    <Paper className={classes.buttonGap}>
-                        <IconButton className={classes.menu} color="inherit" aria-label="menu" onClick={toggleDrawer("top", true)}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Drawer 
-                            anchor={"top"} 
-                            open={drawerState} 
-                            onClose={toggleDrawer("top", false)}
-                            classes={{ paper: classes.paper }}
-                        >
-                            {navItemList(["Home", "About Us", "Menu", "Contact"])}
-                        </Drawer>
-                    </Paper>
+                    
                 </Toolbar>
             </AppBar>
         </ThemeProvider>

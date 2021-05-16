@@ -6,7 +6,8 @@ import { specialMenuDetails } from '../../tempJSON/specialMenu'
 import React from 'react'
 
 
-function Home(){
+const Home = (props) => {
+    const viewType = props.viewType;
     return(
         <React.Fragment>
             <ShowCase />
@@ -14,6 +15,7 @@ function Home(){
             <MessageBullient />
             <MenuView 
                 menuDetails={specialMenuDetails}
+                viewType={viewType}
             />
         </React.Fragment>
     )

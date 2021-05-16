@@ -11,7 +11,7 @@ import Zoom from '@material-ui/core/Zoom'
  * @param {String} [TransitionComponent] Animation type when tooltip pops up
  * @returns {function}
  */
-function CreditImg(props) {
+const CreditImg = (props) => {
     const creditTooltip = useStylesBootstrapTooltip();
     
     return (
@@ -23,7 +23,7 @@ function CreditImg(props) {
       >
         <img src={props.src} 
             alt={props.altText} 
-            className="img-fluid"/>
+            className={`img-fluid ${props.imgClassName}`}/>
       </Tooltip>
     )
 }

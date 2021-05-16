@@ -15,7 +15,7 @@ function MiniAboutUs() {
 
 
     return (
-        <Container maxWidth="md" disableGutters>
+        <Container disableGutters>
             <Paper 
                 elevation={2} 
                 classes={paperClasses} 

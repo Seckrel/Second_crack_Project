@@ -102,6 +102,7 @@ const MenuView = (props) => {
     const [hotDrinkActive, setHotDrinkActive] = useState(true);
     const [activeMenuItem, setActiveMenuItem] = useState(subTypes[0].menuItem)
     const match = useRouteMatch();
+    const viewType = props.viewType;
     const toggleClass = (id) => {
         subTypes.forEach(item => {
             item.active = false;
@@ -113,9 +114,25 @@ const MenuView = (props) => {
             }
         })
     }
+
+    const headCols = () => {
+        console.log(viewType);
+        if (viewType === 'mobile' || viewType === 'tablet'){
+            return 2
+        }
+        return 3
+    }
+
+    const itemCols = () => {
+        if (headCols() === 2){
+            return viewType === 'mobile'?2:1
+        }
+        return 1
+        // cols={viewType === 'mobile'?2:1}
+    }
     
     return (
-        <Container maxWidth="md" disableGutters>
+        <Container disableGutters>
             <Paper
                 elevation={3} 
                 classes={""} 
@@ -124,8 +141,8 @@ const MenuView = (props) => {
             >
                 
                 <Box component="div" m={1}>
-                    <GridList spacing={10} cellHeight={180} className={classes.gridList}>
-                        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                    <GridList spacing={10} cellHeight={180} cols={headCols()} className={classes.gridList}>
+                        <GridListTile key="Subheader" cols={headCols()}style={{ height: 'auto' }}>
                             <ListSubheader component="div">
                                 <Typography 
                                     variant="h5" 
@@ -140,7 +157,7 @@ const MenuView = (props) => {
                         <GridListTile 
                             cellHeight={160} 
                             key={tile.id} 
-                            cols={2}
+                            cols={itemCols()}
                             onClick={!tile.active?() => toggleClass(tile.id):null}
                             className={tile.active?'btn-weather':'btn-faded'}
                             

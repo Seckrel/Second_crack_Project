@@ -6,20 +6,25 @@ import { breakfastMenuDetails } from '../../tempJSON/breakfastMenu';
 import { Fragment } from 'react';
 
 
-function Menu() {
+const Menu = (props) => {
+    const viewType = props.viewType;
     return (
         <Fragment>
             <MenuView 
                 menuDetails={specialMenuDetails}
+                viewType={viewType}
             />
             <MenuView 
                 menuDetails={drinksMenuDetails}
+                viewType={viewType}
             />
             <MenuView 
                 menuDetails={breakfastMenuDetails}
+                viewType={viewType}
             />
             <MenuView 
                 menuDetails={classicMenuDetails}
+                viewType={viewType}
             />
         </Fragment>
     )

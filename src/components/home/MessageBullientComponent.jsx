@@ -7,13 +7,19 @@ import { Typography } from '@material-ui/core'
 const useStylesPaper = makeStyles(theme => ({
     root: {
         backgroundImage: 'url("/assests/tempImgs/pexels-kaboompics-com-6067.jpg")',
-        backgroundPosition: "0 0",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         height: 200,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        [theme.breakpoints.between('sm', 'md')]: {
+            height: 400
+          },
+        [theme.breakpoints.up('md')]: {
+        height: 500
+        }
     }
 }))
 
@@ -32,7 +38,6 @@ const useMessageBoxStyles = makeStyles(theme => ({
     root: {
         width: "200px",
         height: "100px",
-        marginBottom: "15%"
     }
 }))
 

@@ -23,6 +23,7 @@ const ShowCase = (props) => {
                 <CreditImg src={showCaseImg.src}
                     credit={showCaseImg.credit}
                     altText={showCaseImg.altText}
+                    imgClassName={"main-show-case"}
                 />
                 <Box className={"overlay-centered"}>
                     <Typography 

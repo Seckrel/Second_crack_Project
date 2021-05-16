@@ -58,7 +58,7 @@ function ShowCase(){
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <CreditImg credit={item.credit} src={item.src} alt={item.altText} />
+        <CreditImg imgClassName={"main-show-case"} credit={item.credit} src={item.src} alt={item.altText} />
       </CarouselItem>
     );
   });

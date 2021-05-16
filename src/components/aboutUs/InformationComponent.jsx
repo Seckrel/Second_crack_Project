@@ -30,6 +30,7 @@ function Info() {
     return (
         <Container 
             disableGutters
+            style={{overflow: "hidden"}}
         >
             <Paper
                 elevation={2}

@@ -6,21 +6,22 @@ import Box from '@material-ui/core/Box'
 import { Switch, Route } from 'react-router-dom';
 
 
-function Body() {
+const Body = (props) => {
+    const viewType = props.viewType;
     return(
         <Box className={"mainBody"}>
             <Switch>
                 <Route path="/" exact>
-                    <Home />
+                    <Home viewType={viewType}/>
                 </Route>
                 <Route path='/aboutus'>
-                    <AboutUs />
+                    <AboutUs viewType={viewType}/>
                 </Route>
                 <Route path='/contact'>
-                    <ContactUs />
+                    <ContactUs viewType={viewType}/>
                 </Route>
                 <Route path='/menu'>
-                    <Menu />    
+                    <Menu viewType={viewType}/>
                 </Route>
             </Switch>
         </Box>

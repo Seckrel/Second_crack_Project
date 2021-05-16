@@ -9,6 +9,7 @@ const Locations = (props) => {
     return (
         <Container
             disableGutters
+            style={{overflow: "hidden"}}
         >
             <Paper
                 elevation={2}
