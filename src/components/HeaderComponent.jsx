@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
 import { makeStyles } from '@material-ui/core/styles';
 import { appBarTheme } from '../materialUI/AppBarTheme'
@@ -125,6 +126,11 @@ const Header = (props) => {
                     <Paper className={classes.buttonGap}>
                         <IconButton color="inherit" aria-label="cart">
                             <ShoppingCartIcon />
+                        </IconButton>
+                    </Paper>
+                    <Paper className={classes.buttonGap}>
+                        <IconButton color="inherit" aria-label="account">
+                            <AccountCircleIcon />
                         </IconButton>
                     </Paper>
                     
