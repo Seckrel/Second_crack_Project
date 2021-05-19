@@ -14,20 +14,9 @@ import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
 import { makeStyles } from '@material-ui/core/styles';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { appBarTheme } from '../materialUI/AppBarTheme'
 import { useState } from 'react'
-import { FormControl } from '@material-ui/core'
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Input from '@material-ui/core/Input';
+
 
 const useDesktopListStyles = makeStyles(theme => ({
     root: {
@@ -44,90 +33,12 @@ const useToolbarStyles = makeStyles(theme => ({
 }))
 
 
-const LoginDialog = (props) => {
-    const { onClose, open } = props;
-    const handleClose = () => {
-        onClose();
-    }
-    const [values, setValues] = useState({
-        password: '',
-        userId: '',
-        showPassword: false,
-      });
-    
-    const handleClickShowPassword = () => {
-        setValues({ ...values, showPassword: !values.showPassword });
-      };
-    const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-    };
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-    const submitForm = (event) => {
-        console.log(values)
-        event.preventDefault();
-    }
-    return(
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Login</DialogTitle>
-            <form onSubmit={submitForm}>
-                <DialogContent>
-                    <FormControl>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            value={values.userId}
-                            label="Email Address"
-                            onChange={handleChange('userId')}
-                            type="text"
-                            fullwidth
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input
-                            id="standard-adornment-password"
-                            type={values.showPassword ? 'text' : 'password'}
-                            value={values.password}
-                            onChange={handleChange('password')}
-                            
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                    >
-                                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                    </InputAdornment>
-                                    }
-                        />
-                    </FormControl>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button type="submit" onClick={handleClose} color="primary">
-                        Login
-                    </Button>
-                </DialogActions>
-            </form>
-            
-            
-        </Dialog>
-
-    )
-}
 
 const Header = (props) => {
     const classes = useStylesHeader()
     const classesItemText = listItemTextHeader()
     const [drawerState, setDrawerState] = useState(false);
-    const [loginOpen, setLoginOpen] = useState(false);
-    const navItems =["Home", "About Us", "Menu", "Contact"];
+    const navItems =["Home", "About Us", "Shop", "Menu", "Contact"];
     const viewType = props.viewType;
     const desktopListStyle = useDesktopListStyles();
     const toolbarStyles = useToolbarStyles();
@@ -136,7 +47,6 @@ const Header = (props) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
           return;
         }
-    
         setDrawerState(open)
       };
 
@@ -206,14 +116,6 @@ const Header = (props) => {
         </List>
     )
 
-    const handleClickOpen = () => {
-        console.log(loginOpen)
-        setLoginOpen(true);
-    }
-
-    const handleClose = () => {
-        setLoginOpen(false);
-    }
     
 
     return(
@@ -233,15 +135,11 @@ const Header = (props) => {
                         <IconButton 
                             color="inherit" 
                             aria-label="account" 
-                            onClick={handleClickOpen}
+                            onClick={() => window.open(process.env.REACT_APP_SERVER_LOCATION)}
                         >
                             <AccountCircleIcon />
                         </IconButton>
                     </Paper>
-                    <LoginDialog 
-                        open={loginOpen} 
-                        onClose={handleClose} 
-                    />
                 </Toolbar>
             </AppBar>
         </ThemeProvider>

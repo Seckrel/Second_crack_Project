@@ -12,8 +12,8 @@ export const useStylesHeader = makeStyles(theme => ({
       flexGrow: 1,
     },
     buttonGap: {
-        margin: "10px",
-        width: "48px"
+        margin: "5px",
+        width: "48px",
     },
     toolbar: {
         root:{

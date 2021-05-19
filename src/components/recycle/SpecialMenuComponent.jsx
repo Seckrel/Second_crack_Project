@@ -128,7 +128,6 @@ const MenuView = (props) => {
             return viewType === 'mobile'?2:1
         }
         return 1
-        // cols={viewType === 'mobile'?2:1}
     }
     
     return (
