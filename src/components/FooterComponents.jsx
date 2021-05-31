@@ -18,11 +18,16 @@ const useBackToTopFab = makeStyles(theme => ({
 
 function Footer(){
     const backToTopFabClass = useBackToTopFab();
+    const toTop = () => {
+        console.log("before")
+        const c = window.scrollTo({top: 10, behavior: 'smooth'})
+        console.log(c)
+    };
     return(
-       <Box>
+       <Box id="footer">
            <Grid container justify={"center"}>
                <div>
-                <Fab classes={backToTopFabClass} href='#top' aria-label="scroll back to top">
+                <Fab classes={backToTopFabClass} href={"#top"} aria-label="scroll back to top">
                     <ExpandLessIcon 
                         fontSize="large" 
                         style={{transform: "rotate(-45deg)"}}

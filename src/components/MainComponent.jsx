@@ -25,15 +25,14 @@ function Main(){
           window.addEventListener("resize", () => setResponsiveness());
       }, [])
     return(
-        <div>
-            <Header 
-                id='top' 
+        <div id="article">
+            <Header
                 viewType={viewType}
                 />
             <Body 
                 viewType={viewType}
             />
-            <Footer 
+            <Footer
                 viewType={viewType}
             />
         </div>

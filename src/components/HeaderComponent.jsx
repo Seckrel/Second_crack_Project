@@ -16,6 +16,7 @@ import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
 import { makeStyles } from '@material-ui/core/styles';
 import { appBarTheme } from '../materialUI/AppBarTheme'
 import { useState } from 'react'
+import Login from './LoginComponent';
 
 
 const useDesktopListStyles = makeStyles(theme => ({
@@ -42,6 +43,15 @@ const Header = (props) => {
     const viewType = props.viewType;
     const desktopListStyle = useDesktopListStyles();
     const toolbarStyles = useToolbarStyles();
+    const [loginOpen, setLoginOpen] = useState(false);
+
+    const handleClickOpen = () => {
+      setLoginOpen(true);
+    };
+  
+    const handleClose = () => {
+      setLoginOpen(false);
+    };
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -120,7 +130,7 @@ const Header = (props) => {
 
     return(
         <ThemeProvider theme={appBarTheme}>
-            <AppBar position="static" className={classes.toolbar.root}>
+            <AppBar position="static" className={classes.toolbar.root} id='top'>
                 <Toolbar classes={toolbarStyles}>
                     <Typography className={classes.title} variant="h6">
                         2<sup>nd</sup> Crack
@@ -135,11 +145,12 @@ const Header = (props) => {
                         <IconButton 
                             color="inherit" 
                             aria-label="account" 
-                            onClick={() => window.open(process.env.REACT_APP_SERVER_LOCATION)}
+                            onClick={handleClickOpen}
                         >
                             <AccountCircleIcon />
                         </IconButton>
                     </Paper>
+                    <Login open={loginOpen} onClose={handleClose} />
                 </Toolbar>
             </AppBar>
         </ThemeProvider>

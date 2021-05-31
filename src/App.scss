@@ -292,8 +292,14 @@ body {
     background-color: #121a1e;
   };  
 
-  // @include media(">laptop) {
-  //   @include paddingShowCase(map-get($breakpoints, "laptop"));
-  //   background-color: #121a1e;
-  // }  
+}
+
+#article {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  overflow: auto;
+  scroll-behavior: smooth;
+
 }

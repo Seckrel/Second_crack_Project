@@ -4,6 +4,7 @@ import ContactUs from './contactUs/ContactUsComponent';
 import Menu from './menu/MenuComponent';
 import Box from '@material-ui/core/Box'
 import Shop from './shop/ShopComponent';
+import ProductDetail from './shop/ProductDetail';
 import { Switch, Route } from 'react-router-dom';
 
 
@@ -26,6 +27,9 @@ const Body = (props) => {
                 </Route>
                 <Route path='/shop'>
                     <Shop viewType={viewType} />
+                </Route>
+                <Route path={`/:productId`}>
+                    <ProductDetail />
                 </Route>
             </Switch>
         </Box>
