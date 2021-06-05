@@ -14,9 +14,13 @@ import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
 import { makeStyles } from '@material-ui/core/styles';
-import { appBarTheme } from '../materialUI/AppBarTheme'
-import { useState } from 'react'
-import Login from './LoginComponent';
+import { appBarTheme } from '../materialUI/AppBarTheme';
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { ISAUTHENTICATED_QUERY } from '../api/Authorization';
+import UserMenu from './UserMenuComponent'
+import Form from './FormDialogComponent';
+
 
 
 const useDesktopListStyles = makeStyles(theme => ({
@@ -36,53 +40,69 @@ const useToolbarStyles = makeStyles(theme => ({
 
 
 const Header = (props) => {
+
     const classes = useStylesHeader()
     const classesItemText = listItemTextHeader()
     const [drawerState, setDrawerState] = useState(false);
-    const navItems =["Home", "About Us", "Shop", "Menu", "Contact"];
+    const navItems = ["Home", "About Us", "Shop", "Menu", "Contact"];
     const viewType = props.viewType;
     const desktopListStyle = useDesktopListStyles();
     const toolbarStyles = useToolbarStyles();
     const [loginOpen, setLoginOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClickOpen = () => {
-      setLoginOpen(true);
+    const handleUserMenuClose = () => {
+        setAnchorEl(null);
     };
-  
+     // eslint-disable-next-line
+    const { _, __, data, refetch } = useQuery(ISAUTHENTICATED_QUERY);
+
+    const handleClickOpen = async (e) => {
+        try {
+            await refetch();
+            if (data.isAuthenticated) {
+                setAnchorEl(e.target);
+            } else {
+                setAnchorEl(null);
+                setLoginOpen(true);
+            }
+        }catch (e){console.log("Cannot connect to server. Start server: ", e.message)}
+    };
+
     const handleClose = () => {
-      setLoginOpen(false);
+        setLoginOpen(false);
     };
 
-    const toggleDrawer = (anchor, open) => (event) => {
+    const toggleDrawer = (_, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
+            return;
         }
         setDrawerState(open)
-      };
+    };
 
     const linkMaker = (item) => {
-        return item.toLowerCase() === 'home'?'':item.toLowerCase().replaceAll(/\s/g,'');
+        return item.toLowerCase() === 'home' ? '' : item.toLowerCase().replaceAll(/\s/g, '');
     }
 
     const navItemList = (items) => {
-        return(
+        return (
             <List>
                 {items.map(item => (
                     <ListItem>
-                        <ListItemText     
-                            classes={{root: classesItemText.root}}
+                        <ListItemText
+                            classes={{ root: classesItemText.root }}
                         >
-                            <Link to={`/${linkMaker(item)}`} 
-                                style={{ 
-                                        textDecoration: 'none', 
-                                        color: 'inherit' 
-                                    }} 
+                            <Link to={`/${linkMaker(item)}`}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit'
+                                }}
                                 onClick={toggleDrawer("top", false)}
                             >
                                 {item}
                             </Link>
                         </ListItemText>
-                        
+
                     </ListItem>
                 ))}
             </List>
@@ -94,9 +114,9 @@ const Header = (props) => {
             <IconButton className={classes.menu} color="inherit" aria-label="menu" onClick={toggleDrawer("top", true)}>
                 <MenuIcon />
             </IconButton>
-            <Drawer 
-                anchor={"top"} 
-                open={drawerState} 
+            <Drawer
+                anchor={"top"}
+                open={drawerState}
                 onClose={toggleDrawer("top", false)}
                 classes={{ paper: classes.paper }}
             >
@@ -109,13 +129,13 @@ const Header = (props) => {
         <List classes={desktopListStyle}>
             {navItems.map(item => (
                 <ListItem>
-                    <Typography  variant="h6" noWrap>
-                        <Link 
-                            to={`/${linkMaker(item)}`} 
-                            style={{ 
-                                textDecoration: 'none', 
-                                color: 'inherit' 
-                                }} 
+                    <Typography variant="h6" noWrap>
+                        <Link
+                            to={`/${linkMaker(item)}`}
+                            style={{
+                                textDecoration: 'none',
+                                color: 'inherit'
+                            }}
                             onClick={toggleDrawer("top", false)}
                         >
                             {item}
@@ -126,31 +146,32 @@ const Header = (props) => {
         </List>
     )
 
-    
 
-    return(
+
+    return (
         <ThemeProvider theme={appBarTheme}>
             <AppBar position="static" className={classes.toolbar.root} id='top'>
                 <Toolbar classes={toolbarStyles}>
                     <Typography className={classes.title} variant="h6">
                         2<sup>nd</sup> Crack
                     </Typography>
-                    {viewType === "laptop" || viewType === "pc"?desktopNav():mobileNav()}
+                    {viewType === "laptop" || viewType === "pc" ? desktopNav() : mobileNav()}
                     <Paper className={classes.buttonGap}>
                         <IconButton color="inherit" aria-label="cart">
                             <ShoppingCartIcon />
                         </IconButton>
                     </Paper>
                     <Paper className={classes.buttonGap}>
-                        <IconButton 
-                            color="inherit" 
-                            aria-label="account" 
+                        <IconButton
+                            id="icon-btn"
+                            color="inherit"
+                            aria-label="account"
                             onClick={handleClickOpen}
                         >
                             <AccountCircleIcon />
                         </IconButton>
                     </Paper>
-                    <Login open={loginOpen} onClose={handleClose} />
+                    {data === undefined || !data.isAuthenticated ? <Form open={loginOpen} onClose={handleClose} /> : <UserMenu anchorEl={anchorEl} handleClose={handleUserMenuClose} refetch={refetch} />}
                 </Toolbar>
             </AppBar>
         </ThemeProvider>

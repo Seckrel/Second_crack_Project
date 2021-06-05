@@ -14,6 +14,7 @@ const ShowCase = (props) => {
     return (
         <Container 
             disableGutters
+            className={"container-flex-fixed"}
         >
             <Paper 
                 elevation={3}

@@ -15,7 +15,10 @@ const Shop = (props) => {
         <Backdrop open={loading} >
             <CircularProgress color="inherit" />
         </Backdrop>
-    );
+    )
+    else if(error) return(
+        <h2>{error.message}</h2>
+    )
     
     return(
         <ShopItems 

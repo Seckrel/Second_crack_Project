@@ -12,17 +12,13 @@ const useBackToTopFab = makeStyles(theme => ({
         position: "relative",
         bottom: '18px',
         backgroundColor: '#121e22',
-        borderRadius: "20%"
+        borderRadius: "20%",
+        boxShadow: "0px 0px"
     },
 }))
 
 function Footer(){
     const backToTopFabClass = useBackToTopFab();
-    const toTop = () => {
-        console.log("before")
-        const c = window.scrollTo({top: 10, behavior: 'smooth'})
-        console.log(c)
-    };
     return(
        <Box id="footer">
            <Grid container justify={"center"}>

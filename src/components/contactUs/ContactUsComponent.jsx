@@ -24,19 +24,21 @@ const locationNames = [
 ]
 
 
-function ContactUs () {
+function ContactUs() {
     return (
         <Fragment>
-            <ShowCase 
-                showCaseImg={showCaseImg}
-                color={"white"}
-                fontFamily={"'Old Growth',Arial,sans-serif"}
-                overlayText={"contact us"}
-                variant={'subtitle1'}
-            />
-            <Locations 
-                locations={locationNames}
-            />
+            <div className={"parent-container-flex"}>
+                <ShowCase
+                    showCaseImg={showCaseImg}
+                    color={"white"}
+                    fontFamily={"'Old Growth',Arial,sans-serif"}
+                    overlayText={"contact us"}
+                    variant={'subtitle1'}
+                />
+                <Locations
+                    locations={locationNames}
+                />
+            </div>
         </Fragment>
     )
 }

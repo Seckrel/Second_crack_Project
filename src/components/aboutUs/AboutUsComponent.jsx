@@ -11,13 +11,17 @@ const showCaseImg = {
 function AboutUs() {
     return (
         <Fragment>
-            <ShowCase 
-                showCaseImg={showCaseImg}
-                color={"white"}
-                fontFamily={"'Old Growth',Arial,sans-serif"}
-                overlayText={"our story"}
-            />
-            <Info />
+            <div
+                className={"parent-container-flex"}
+            >
+                <ShowCase
+                    showCaseImg={showCaseImg}
+                    color={"white"}
+                    fontFamily={"'Old Growth',Arial,sans-serif"}
+                    overlayText={"our story"}
+                />
+                <Info />
+            </div>
         </Fragment>
     )
 }

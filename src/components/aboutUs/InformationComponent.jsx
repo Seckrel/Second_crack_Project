@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 const usePaperStyles = makeStyles(theme => ({
     root: {
         backgroundImage: "#fff",
+        height: "100%"
     }
 }))
 
@@ -31,6 +32,7 @@ function Info() {
         <Container 
             disableGutters
             style={{overflow: "hidden"}}
+            className={"container-flex-dynamic"}
         >
             <Paper
                 elevation={2}

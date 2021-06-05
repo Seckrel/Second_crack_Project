@@ -10,12 +10,16 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import { useHistory } from 'react-router-dom'
+import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Review from './ReviewViewer';
+import ReviewForm from './ReviewFormComponent';
+import { ISAUTHENTICATED_QUERY } from '../../api/Authorization';
+import { useEffect, useState } from 'react';
 
-const useBoxStyles = makeStyles(theme =>({ 
+const useBoxStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: "#fff",
+        backgroundColor: "#f5f5f5fc",
         height: "100%",
         overflowX: "hidden"
     }
@@ -23,29 +27,30 @@ const useBoxStyles = makeStyles(theme =>({
 
 const DetailView = ({ details }) => (
     <Grid container spacing={2}>
-    <Grid container item xs={12} justify={"center"}> 
-        <img src={details.src} height={300} alt={details.name} />
-    </Grid>
-    <Grid item xs={12} justify={"center"}>
-        <Grid container spacing={2}>
-            <Grid container item xs={12} justify={"center"}>
-                <Typography 
-                    variant={'h3'}
-                    component={"div"}
-                    style={{fontFamily: '"Brandon Grotesque", sans-serif', color: 'rgb(179, 177, 177)'}}
-                >
-                    {details.name}
-                </Typography>
-            </Grid>
-            <Grid container item xs={12} justify={"center"}>
-                <Typography variant={'h6'} component={"div"}
-                    style={{
-                        fontFamily: 'courier-std, sans-serif',
-                        color: 'rgb(121, 118, 118)'
-                    }}
-                >
-                    ${details.price}
-                </Typography>
+        <Grid container item xs={12} justify={"center"}>
+            <img src={details.src} height={300} alt={details.name} />
+        </Grid>
+        <Grid item xs={12} justify={"center"}>
+            <Grid container spacing={2}>
+                <Grid container item xs={12} justify={"center"}>
+                    <Typography
+                        variant={'h3'}
+                        component={"div"}
+                        style={{ fontFamily: '"Brandon Grotesque", sans-serif', color: 'rgb(179, 177, 177)' }}
+                    >
+                        {details.name}
+                    </Typography>
+                </Grid>
+                <Grid container item xs={12} justify={"center"}>
+                    <Typography variant={'h6'} component={"div"}
+                        style={{
+                            fontFamily: 'courier-std, sans-serif',
+                            color: 'rgb(121, 118, 118)',
+                            fontSize: "2rem"
+                        }}
+                    >
+                        ${details.price}
+                    </Typography>
                 </Grid>
             </Grid>
         </Grid>
@@ -55,10 +60,22 @@ const DetailView = ({ details }) => (
 const Details = () => {
     const { productId } = useParams();
     const classBoxStyle = useBoxStyles();
+    const [reviewId, setReviewId] = useState("");
+    // eslint-disable-next-line
+    const { _, __, data: authData, refetch } = useQuery(ISAUTHENTICATED_QUERY);
     const history = useHistory();
     const { loading, error, data } = useQuery(PRODUCT_DETAIL_QUERY, {
         variables: { productId }
     })
+    useEffect(() => {
+        const temp = async () => await refetch();
+        temp();
+        localStorage.setItem('productId', productId);
+    }, [refetch, productId])
+
+    const callbackReviewId = (id) => {
+        setReviewId(id);
+    }
 
     if (loading) return (
         <Backdrop open={loading} >
@@ -68,31 +85,48 @@ const Details = () => {
 
     if (error) return (
         <div>
-            {error}
-        </div>    
+            {error.message}
+        </div>
     )
 
     const details = data.getProductDetail;
     const handleClick = () => {
+        localStorage.removeItem('productId')
         history.push(`/shop`);
-      }
+    }
+
 
     return (
-        <Box p={3} classes={classBoxStyle}>
-            <Breadcrumbs aria-label="breadcrumb">
-                <Link color="white"  href="#" onClick={handleClick}>
-                    Shop
+        <Container disableGutters style={{ height: "100%" }}>
+            {console.log(productId)}
+            <Box p={3} classes={classBoxStyle}>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="white" href="#" onClick={handleClick}>
+                        Shop
                 </Link>
-                <Typography>{details.name}</Typography>
-            </Breadcrumbs>
-            <Divider />
-            <Box mt={3}>
-                <DetailView details={details} />
+                    <Typography>{details.name}</Typography>
+                </Breadcrumbs>
+                <Divider />
+                <Box mt={3}>
+                    <DetailView
+                        details={details}
+                    />
+                </Box>
+                <Box mt={3}>
+                    {authData.isAuthenticated ? <ReviewForm
+                        review={details._reviewId.filter(review => review._id === reviewId)[0]}
+                        productId={details._id}
+                    /> : ""}
+                </Box>
+                <Box mt={4}>
+                    <Review
+                        isAuth={authData.isAuthenticated}
+                        reviews={details._reviewId}
+                        setReviewId={callbackReviewId}
+                    />
+                </Box>
             </Box>
-            <Box mt={4}>
-                <Review reviews={details._reviewId} />
-            </Box>
-        </Box>
+        </Container>
     )
 }
 

@@ -10,10 +10,12 @@ const Locations = (props) => {
         <Container
             disableGutters
             style={{overflow: "hidden"}}
+            className={"container-flex-dynamic"}
         >
             <Paper
                 elevation={2}
                 square
+                className={"dynamic-paper"}
             >
                 <Grid container spacing={4}>
                     {props.locations.map(location => (
