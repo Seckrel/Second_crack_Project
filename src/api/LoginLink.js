@@ -9,6 +9,10 @@ export const LOGIN_MUTATION = gql`
             userName: $userName, 
             password: $password,
             ) {
+                userName
+                firstName
+                lastName
+                phnNumber
                 flag
                 msg
                 error

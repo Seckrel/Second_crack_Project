@@ -12,14 +12,15 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { useStylesHeader, listItemTextHeader } from '../materialUI/Styles'
+import { useStylesHeader, listItemTextHeader } from '../../materialUI/Styles'
 import { makeStyles } from '@material-ui/core/styles';
-import { appBarTheme } from '../materialUI/AppBarTheme';
+import { appBarTheme } from '../../materialUI/AppBarTheme';
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { ISAUTHENTICATED_QUERY } from '../api/Authorization';
+import { ISAUTHENTICATED_QUERY } from '../../api/Authorization';
 import UserMenu from './UserMenuComponent'
 import Form from './FormDialogComponent';
+import Cart from '../shop/ShopingCartComponent';
 
 
 
@@ -50,11 +51,12 @@ const Header = (props) => {
     const toolbarStyles = useToolbarStyles();
     const [loginOpen, setLoginOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openCart, setOpenCart] = useState(false);
 
     const handleUserMenuClose = () => {
         setAnchorEl(null);
     };
-     // eslint-disable-next-line
+    // eslint-disable-next-line
     const { _, __, data, refetch } = useQuery(ISAUTHENTICATED_QUERY);
 
     const handleClickOpen = async (e) => {
@@ -66,7 +68,7 @@ const Header = (props) => {
                 setAnchorEl(null);
                 setLoginOpen(true);
             }
-        }catch (e){console.log("Cannot connect to server. Start server: ", e.message)}
+        } catch (e) { console.log("Cannot connect to server. Start server: ", e.message) }
     };
 
     const handleClose = () => {
@@ -157,7 +159,7 @@ const Header = (props) => {
                     </Typography>
                     {viewType === "laptop" || viewType === "pc" ? desktopNav() : mobileNav()}
                     <Paper className={classes.buttonGap}>
-                        <IconButton color="inherit" aria-label="cart">
+                        <IconButton color="inherit" aria-label="cart" onClick={() => setOpenCart(!openCart)}>
                             <ShoppingCartIcon />
                         </IconButton>
                     </Paper>
@@ -171,7 +173,22 @@ const Header = (props) => {
                             <AccountCircleIcon />
                         </IconButton>
                     </Paper>
-                    {data === undefined || !data.isAuthenticated ? <Form open={loginOpen} onClose={handleClose} /> : <UserMenu anchorEl={anchorEl} handleClose={handleUserMenuClose} refetch={refetch} />}
+                    {
+                        data === undefined || !data.isAuthenticated ?
+                            <Form
+                                open={loginOpen}
+                                onClose={handleClose}
+                            /> :
+                            <UserMenu
+                                anchorEl={anchorEl}
+                                handleClose={handleUserMenuClose}
+                                refetch={refetch}
+                            />
+                    }
+                    {
+                        data !== undefined && data.isAuthenticated && openCart ?
+                            <Cart open={openCart} handleClose={() => setOpenCart(false)} /> : ""
+                    }
                 </Toolbar>
             </AppBar>
         </ThemeProvider>

@@ -11,11 +11,14 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import { useHistory } from 'react-router-dom'
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Review from './ReviewViewer';
 import ReviewForm from './ReviewFormComponent';
 import { ISAUTHENTICATED_QUERY } from '../../api/Authorization';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { addToCart } from '../../js/AddtoCart';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useBoxStyles = makeStyles(theme => ({
     root: {
@@ -67,16 +70,9 @@ const Details = () => {
     const { loading, error, data } = useQuery(PRODUCT_DETAIL_QUERY, {
         variables: { productId }
     })
-    useEffect(() => {
-        const temp = async () => await refetch();
-        temp();
-        localStorage.setItem('productId', productId);
-    }, [refetch, productId])
-
     const callbackReviewId = (id) => {
         setReviewId(id);
     }
-
     if (loading) return (
         <Backdrop open={loading} >
             <CircularProgress color="inherit" />
@@ -88,17 +84,14 @@ const Details = () => {
             {error.message}
         </div>
     )
-
     const details = data.getProductDetail;
     const handleClick = () => {
         localStorage.removeItem('productId')
         history.push(`/shop`);
     }
 
-
     return (
         <Container disableGutters style={{ height: "100%" }}>
-            {console.log(productId)}
             <Box p={3} classes={classBoxStyle}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link color="white" href="#" onClick={handleClick}>
@@ -112,11 +105,24 @@ const Details = () => {
                         details={details}
                     />
                 </Box>
+                <Box mt={3} display={"flex"} justifyContent={"center"}>
+                    {authData.isAuthenticated ?
+                        <Button
+                            endIcon={<AddShoppingCartIcon />}
+                            onClick={() => addToCart(productId, details.name)}
+                        >
+                            <Typography variant="h6" component={"span"}>
+                                Add to cart
+                            </Typography>
+                        </Button> : ""
+                    }
+                </Box>
                 <Box mt={3}>
-                    {authData.isAuthenticated ? <ReviewForm
-                        review={details._reviewId.filter(review => review._id === reviewId)[0]}
-                        productId={details._id}
-                    /> : ""}
+                    {authData.isAuthenticated ?
+                        <ReviewForm
+                            review={details._reviewId.filter(review => review._id === reviewId)[0]}
+                            productId={details._id}
+                        /> : ""}
                 </Box>
                 <Box mt={4}>
                     <Review

@@ -8,8 +8,8 @@ import SignUpForm from './SignUpComponent';
 import LoginForm from './LoginComponent';
 import { useMutation } from '@apollo/client';
 import Box from '@material-ui/core/Box';
-import { LOGIN_MUTATION } from '../api/LoginLink';
-import { SIGNUP_MUTATION } from '../api/SignUpLink';
+import { LOGIN_MUTATION } from '../../api/LoginLink';
+import { SIGNUP_MUTATION } from '../../api/SignUpLink';
 import { useHistory } from 'react-router-dom';
 
 
@@ -64,9 +64,6 @@ const Form = (props) => {
                         password: e.target.password.value,
                     }
                 })
-                    .then(res => { setRedirect(true) })
-                    .catch(e => console.log(e.message))
-
             } catch (e) { console.log(e.message) }
         } else {
             if (e.target.password.value !== e.target.password2.value) return null;

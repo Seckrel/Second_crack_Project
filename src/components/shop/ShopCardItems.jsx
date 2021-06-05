@@ -2,8 +2,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,11 +9,6 @@ import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
 
 
-const useShoppingCartStyles = makeStyles(theme => ({
-    root: {
-        color: "white",
-    }
-}));
 
 const useBodyBoxStyles = makeStyles(theme => ({
     root: {
@@ -28,8 +21,6 @@ const useBodyBoxStyles = makeStyles(theme => ({
 const ShopItems = (props) => {
     const product = props.product;
     const history = useHistory();
-
-    const classShoppingCart = useShoppingCartStyles();
     const classBodyBox = useBodyBoxStyles();
     const viewType = props.viewType;
     const colums = {
@@ -42,7 +33,7 @@ const ShopItems = (props) => {
         history.push(`/${productId}`);
     }
     return (
-        <Container disableGutters style={{height: "100%"}}>
+        <Container disableGutters style={{ height: "100%" }}>
             <Box classes={classBodyBox} p={3} pt={6}>
                 <GridList cellHeight={180} cols={colums[viewType]} spacing={10}>
                     <GridListTile key="Subheader" cols={colums[viewType]} style={{ height: 'auto', marginBottom: "24px" }}>
@@ -66,13 +57,6 @@ const ShopItems = (props) => {
                             <GridListTileBar
                                 title={tile.name}
                                 subtitle={<span>${tile.price}</span>}
-                            />
-                            <GridListTileBar
-                                actionIcon={
-                                    <IconButton aria-label={`info about ${tile.title}`}>
-                                        <ShoppingCartIcon classes={classShoppingCart} />
-                                    </IconButton>
-                                }
                             />
                         </GridListTile>
                     ))}

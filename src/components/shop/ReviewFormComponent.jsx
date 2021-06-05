@@ -53,7 +53,6 @@ const ReviewForm = (props) => {
         if (props.review) {
             dataToSubmit.reviewId = props.review._id;
         }
-        console.log(dataToSubmit)
         await addReviewLink({
             variables: {
                 ...dataToSubmit

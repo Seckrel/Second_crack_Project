@@ -1,4 +1,4 @@
-import Header from './HeaderComponent';
+import Header from './header/HeaderComponent';
 import Footer from './FooterComponents';
 import Body from './BodyComponent';
 import { useState, useEffect } from 'react';
