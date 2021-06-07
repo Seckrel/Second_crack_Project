@@ -53,7 +53,7 @@ export const classicMenuDetails = {
         },
         {
             id: 3,
-            backgroundImgSrc: "/assests/tempImgs/pexels-jéshoots-7390.jpg",
+            backgroundImgSrc: "/assests/tempImgs/pexels-jeshoots-7390.jpg",
             altText: "Click for menu of croissants",
             active: false,
             credit: "",

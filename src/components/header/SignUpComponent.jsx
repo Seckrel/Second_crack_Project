@@ -16,7 +16,7 @@ const SignUpForm = () => {
         userId: '',
         firstName: '',
         lastName: '',
-        phnNumber: 0,
+        phnNumber: '',
         showPassword: false,
     });
     const handleChange = (prop) => (event) => {

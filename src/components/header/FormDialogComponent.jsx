@@ -52,9 +52,12 @@ const Form = (props) => {
     const handleClose = () => {
         onClose();
     }
+
     useEffect(() => {
         history.push(history.location.pathname);
     }, [redirect, history])
+
+
     const submitForm = async (e) => {
         if (loginForm) {
             try {
@@ -73,13 +76,14 @@ const Form = (props) => {
                     password: e.target.password.value,
                     firstName: e.target.firstName.value,
                     lastName: e.target.lastName.value,
-                    phnNumber: parseInt(e.target.phnNumber.value),
+                    phnNumber: e.target.phnNumber.value,
                 }
             })
                 .then(res => { setRedirect(true) })
                 .catch(e => console.log(e.message))
         }
     }
+
     const handleLoginOrSignUp = () => {
         setLoginForm(!loginForm);
     }

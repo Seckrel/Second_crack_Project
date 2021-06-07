@@ -6,7 +6,7 @@ export const SIGNUP_MUTATION = gql`
         $password: String!,
         $firstName: String!,
         $lastName: String,
-        $phnNumber: Int,
+        $phnNumber: String,
         ) {
         addUser(
             userName: $userName, 
