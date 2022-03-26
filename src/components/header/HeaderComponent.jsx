@@ -152,10 +152,6 @@ const Header = (props) => {
         <ThemeProvider theme={appBarTheme}>
             <AppBar position="static" className={classes.toolbar.root} id='top'>
                 <Toolbar classes={toolbarStyles}>
-                    {/* <Typography className={classes.title} variant="h6">
-                        2<sup>nd</sup> Crack */}
-                    {/* </Typography> */}
-                    {/* <SvgIcon component={Coffee_icon} viewBox="0 0 600 476.6" /> */}
                     <div className={classes.title}>
                         <img
 
