@@ -148,15 +148,23 @@ const Header = (props) => {
         </List>
     )
 
-
-
     return (
         <ThemeProvider theme={appBarTheme}>
             <AppBar position="static" className={classes.toolbar.root} id='top'>
                 <Toolbar classes={toolbarStyles}>
-                    <Typography className={classes.title} variant="h6">
-                        2<sup>nd</sup> Crack
-                    </Typography>
+                    {/* <Typography className={classes.title} variant="h6">
+                        2<sup>nd</sup> Crack */}
+                    {/* </Typography> */}
+                    {/* <SvgIcon component={Coffee_icon} viewBox="0 0 600 476.6" /> */}
+                    <div className={classes.title}>
+                        <img
+
+                            src="/assests/icon/coffee_icon.svg"
+                            alt="coffee_icon"
+                            width={"80"}
+                            height={"80"}
+                        />
+                    </div>
                     {viewType === "laptop" || viewType === "pc" ? desktopNav() : mobileNav()}
                     <Paper className={classes.buttonGap}>
                         <IconButton color="inherit" aria-label="cart" onClick={() => setOpenCart(!openCart)}>
