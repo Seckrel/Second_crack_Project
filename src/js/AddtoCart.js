@@ -1,15 +1,16 @@
-const InitValue = (id, name) => {
+const InitValue = (id, name, pricePerUnit) => {
     const temp = [{
         productId: id,
         name: name,
-        quantity: 1
+        quantity: 1,
+        pricePerUnit: pricePerUnit
     }]
     return JSON.stringify(temp)
 }
 
-export const addToCart = (productId, name) => {
+export const addToCart = (productId, name, pricePerUnit) => {
     if (!productId) return null;
-    if (localStorage.getItem("cartList") === null) localStorage.setItem("cartList", InitValue(productId, name));
+    if (localStorage.getItem("cartList") === null) localStorage.setItem("cartList", InitValue(productId, name, pricePerUnit));
     else {
         const list = localStorage.getItem("cartList");
         const listJSON = JSON.parse(list)
@@ -18,7 +19,8 @@ export const addToCart = (productId, name) => {
         else listJSON.push({
             productId: productId,
             name: name,
-            quantity: 1
+            quantity: 1,
+            pricePerUnit: pricePerUnit
         })
         localStorage.setItem("cartList", JSON.stringify(listJSON));
     }

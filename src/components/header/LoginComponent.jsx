@@ -73,7 +73,6 @@ const LoginForm = () => {
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                {console.log(error)}
                 <FormControl>
                     <TextField
                         autoFocus

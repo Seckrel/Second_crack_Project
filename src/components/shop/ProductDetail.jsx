@@ -22,7 +22,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useBoxStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: "#f5f5f5fc",
+        backgroundColor: "#d0cccc",
         height: "100%",
         overflowX: "hidden"
     }
@@ -109,7 +109,7 @@ const Details = () => {
                     {authData.isAuthenticated ?
                         <Button
                             endIcon={<AddShoppingCartIcon />}
-                            onClick={() => addToCart(productId, details.name)}
+                            onClick={() => addToCart(productId, details.name, details.price)}
                         >
                             <Typography variant="h6" component={"span"}>
                                 Add to cart
