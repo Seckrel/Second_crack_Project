@@ -68,6 +68,7 @@ const Cart = (props) => {
         {chipData.length > 0 && (
           <Button
             component={Link}
+            onClick={props.handleClose}
             to={{
               pathname: "/order",
               state: { cartData: chipData },

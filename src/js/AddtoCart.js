@@ -10,7 +10,7 @@ const InitValue = (id, name, pricePerUnit) => {
 
 export const addToCart = (productId, name, pricePerUnit) => {
     if (!productId) return null;
-    if (localStorage.getItem("cartList") === null) localStorage.setItem("cartList", InitValue(productId, name, pricePerUnit));
+    if (localStorage.getItem("cartList") === null || localStorage.getItem("cartList") === "") localStorage.setItem("cartList", InitValue(productId, name, pricePerUnit));
     else {
         const list = localStorage.getItem("cartList");
         const listJSON = JSON.parse(list)

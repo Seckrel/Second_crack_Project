@@ -24,8 +24,7 @@ function PaymentMethod({ paymentMethod, setPaymentMethod }) {
         onChange={handleChange}
         className={classes.radioGrp}
       >
-        <FormControlLabel value={"0"} control={<Radio />} label="Paypal" />
-        <FormControlLabel value={"1"} control={<Radio />} label="Esewa" />
+        <FormControlLabel value={"0"} control={<Radio />} label="Stripe" />
       </RadioGroup>
     </Paper>
   );
